@@ -1,0 +1,33 @@
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.9'
+
+  - script: |
+      python -m pip install --upgrade pip
+      pip install -r requirements.txt
+    displayName: 'Install dependencies'
+
+  - script: |
+      pip install pytest
+      pytest tests/
+    displayName: 'Run tests'
+
+  - task: Docker@2
+    inputs:
+      containerRegistry: '<your-acr-name>'  # Replace with your Azure Container Registry name
+      repository: 'finsecureaiagent'
+      command: 'buildAndPush'
+      Dockerfile: 'Dockerfile'
+
+  - task: AzureWebAppContainer@1
+    inputs:
+      azureSubscription: '<your-azure-subscription>'
+      appName: 'FinSecureAIAgentApp'
+      containers: '<your-acr-name>.azurecr.io/finsecureaiagent:latest'
