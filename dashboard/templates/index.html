@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FinSecureAIAgent Dashboard</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>Financial Risk Dashboard</h1>
+    <pre id="alerts">Loading alert...</pre>
+
+    <script>
+        fetch('/analyze', {
+            method: 'POST',
+            headers: { 
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer YOUR_JWT_TOKEN_HERE' //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZ2VudF9pZCI6ImFnZW50MSIsImV4cCI6MTc0NjYzODk1N30.zaQ19RqwabL4SoPZ3aRZx5tHDrDA4u8w5aASVVW9DHM
+            },
+            body: JSON.stringify({
+                text: "Card: 1234-5678-9012-3456",
+                transaction_amount: 15000
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById('alerts').textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(err => {
+            document.getElementById('alerts').textContent = "Error: " + err;
+        });
+    </script>
+</body>
+</html>
