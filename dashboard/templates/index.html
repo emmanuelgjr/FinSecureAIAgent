@@ -1,32 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>FinSecureAIAgent Dashboard</title>
-    <link rel="stylesheet" href="/static/styles.css">
+  <title>FinSecureAIAgent Dashboard</title>
+  <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <h1>Financial Risk Dashboard</h1>
-    <pre id="alerts">Loading alert...</pre>
+  <div class="container">
+    <h1>📊 Financial Risk Dashboard</h1>
 
-    <script>
-        fetch('/analyze', {
-            method: 'POST',
-            headers: { 
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZ2VudF9pZCI6ImFnZW50MSIsImV4cCI6MTc0NjY0MjEzNH0._jzN1ptoaDwzkPRY10xECKsw4-Y8Ov-FirM0rf47BLI'
-            },
-            body: JSON.stringify({
-                text: "Card: 1234-5678-9012-3456",
-                transaction_amount: 15000
-            })
-        })
-        .then(res => res.json())
-        .then(data => {
-            document.getElementById('alerts').textContent = JSON.stringify(data, null, 2);
-        })
-        .catch(err => {
-            document.getElementById('alerts').textContent = "Error: " + err;
-        });
-    </script>
+    <div class="button-group">
+      <button onclick="simulate('phishing')">Simulate Phishing</button>
+      <button onclick="simulate('llm_leakage')">Simulate LLM Leakage</button>
+    </div>
+
+    <pre id="alerts">Click a simulation button to analyze...</pre>
+  </div>
+
+  <script>
+    const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZ2VudF9pZCI6ImFnZW50MSIsImV4cCI6MTc0NjY0MjEzNH0._jzN1ptoaDwzkPRY10xECKsw4-Y8Ov-FirM0rf47BLI"; 
+
+    function simulate(type) {
+      fetch(`/simulate/${type}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': token
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('alerts').textContent = JSON.stringify(data, null, 2);
+      })
+      .catch(err => {
+        document.getElementById('alerts').textContent = "Error: " + err;
+      });
+    }
+  </script>
 </body>
 </html>

@@ -1,17 +1,52 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 40px;
-    background-color: #f8f9fa;
-}
-
-h1 {
-    color: #003087; /* American Express brand blue */
-}
-
-#alerts {
-    background-color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 60px auto;
+    background: #ffffff;
+    padding: 30px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    border-radius: 12px;
+  }
+  
+  h1 {
+    color: #003087;
+    text-align: center;
+  }
+  
+  pre {
+    background: #f0f4f8;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     white-space: pre-wrap;
-}
+    word-wrap: break-word;
+    font-size: 16px;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 10px;
+  }
+  
+  .button-group button {
+    background-color: #003087;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.2s ease-in-out;
+  }
+  
+  .button-group button:hover {
+    background-color: #0050c7;
+  }
+  
